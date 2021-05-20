@@ -1,4 +1,4 @@
 import './styles.scss'
-let greetings: string = 'Hello, World!'
+const greetings: string = 'Hello, World!'
 
-console.log(greetings)
+export const add = (a: any, b: any) => a + b

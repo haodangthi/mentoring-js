@@ -1,12 +1,12 @@
 import './styles.scss'
 
-const a: number = 1012
+const a = 1012
 const b = 12
 
 export const add = (a: any, b: any) => a + b
 
 console.log(add(a, b))
 
-let greetings: string = 'Hello, World!'
-
-console.log(greetings)
+const greetings = 'Hello, World!'
+console.log(document)
+document.querySelector('h1').innerHTML = greetings

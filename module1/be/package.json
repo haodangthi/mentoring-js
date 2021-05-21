@@ -15,13 +15,14 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint"
+      "pre-commit": "echo \"[Husky] pre-commit\""
     }
   },
   "lint-staged": {
     "./**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
       "npm run lint",
-      "npm run lint:check"
+      "npm run lint:check",
+      "git add ."
     ]
   },
   "repository": {

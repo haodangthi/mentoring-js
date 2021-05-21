@@ -7,7 +7,7 @@ export const add = (a: any, b: any) => a + b
 
 console.log(add(a, b))
 
-const greetings = 'Hello, Wohhhhhhrld!'
+const greetings = 'Hello, Wohhhhhhkkkkkkkrld!'
 
 if (document.querySelector('h1')) {
     document.querySelector('h1').innerHTML = greetings

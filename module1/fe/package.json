@@ -12,6 +12,11 @@
     "lint:fix": "eslint . --ext .ts --fix",
     "lint": "prettier --config .prettierrc 'src/**/*.ts' --write"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "echo \"[Husky] pre-commit\""
+    }
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -49,6 +54,7 @@
   "dependencies": {
     "@babel/preset-typescript": "^7.13.0",
     "eslint-webpack-plugin": "^2.5.4",
+    "husky": "^6.0.0",
     "prettier": "^2.3.0"
   }
 }

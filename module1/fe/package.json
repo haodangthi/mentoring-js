@@ -14,8 +14,14 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "echo \"[Husky] pre-commit\""
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "./**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "npm run lint",
+      "npm run lint:check"
+    ]
   },
   "keywords": [],
   "author": "",
@@ -55,6 +61,7 @@
   "dependencies": {
     "@babel/preset-typescript": "^7.13.0",
     "eslint-webpack-plugin": "^2.5.4",
+    "lint-staged": "^11.0.0",
     "prettier": "^2.3.0"
   }
 }

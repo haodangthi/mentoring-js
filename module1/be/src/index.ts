@@ -1,5 +1,5 @@
 import './styles.scss'
-const greetings        : string = 'Hsswswsello, World!';
+const greetings = 'Hsswswsello, World!'
 
-export const add     = (a: any, b: any) => a + b;
-console.log(greetings);
+export const add = (a: any, b: any) => a + b
+console.log(greetings)

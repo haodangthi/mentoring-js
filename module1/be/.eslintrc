@@ -20,6 +20,7 @@
     "object-curly-spacing": ["error", "always", { "arraysInObjects": false, "objectsInObjects": false  }],
     "no-multi-spaces": ["error", { "ignoreEOLComments": false }],
     "semi": ["error", "never"],
-    "quotes": ["error", "single"]
+    "quotes": ["error", "single"],
+    "key-spacing": ["error", { "afterColon": true }],
   }
 }

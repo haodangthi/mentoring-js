@@ -8,18 +8,20 @@ import {
 } from '../models'
 import Task from '../models/task'
 
-function getTaskForToday(challengeId: string): TaskForToday {
+export function getTaskForToday(challengeId: string): TaskForToday {
   return {} as TaskForToday
 }
 
-function getActualAchievements(challengeId: string): ActualAchievement[] {
+export function getActualAchievements(
+  challengeId: string
+): ActualAchievement[] {
   return [] as ActualAchievement[]
 }
-function getTaskArchive(challengeId: string): ArchiveItem[] {
+export function getTaskArchive(challengeId: string): ArchiveItem[] {
   return [] as ArchiveItem[]
 }
 
-function startNewChallenge(
+export function startNewChallenge(
   tasksList: Task[],
   challengesList: string[],
   challengeDuration = 30,
@@ -28,7 +30,7 @@ function startNewChallenge(
   return {} as Challenge
 }
 
-function calculateAchievementsStatus(
+export function calculateAchievementsStatus(
   achievementsList: ActualAchievement[]
 ): Status {
   return {} as Status

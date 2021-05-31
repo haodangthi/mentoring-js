@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "generate-docs": "npx typedoc src",
     "test": "npx jest",
     "build": "rimraf ./build && tsc",
     "start:prod": "npm run build && node build/index.js",
@@ -43,6 +44,7 @@
     "eslint": "^7.26.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-tsdoc": "^0.2.14",
     "jest": "^26.6.3",
     "lint-staged": "^11.0.0",
     "nodemon": "^2.0.7",
@@ -51,6 +53,7 @@
     "rimraf": "^3.0.2",
     "ts-jest": "^26.5.6",
     "ts-node": "^9.1.1",
+    "typedoc": "^0.20.36",
     "typescript": "^4.2.4"
   },
   "dependencies": {

@@ -3,6 +3,7 @@
   "parser": "@typescript-eslint/parser",
   "plugins": [
     "@typescript-eslint",
+    "eslint-plugin-tsdoc",
     "prettier"
   ],
   "extends": [
@@ -10,5 +11,16 @@
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
     "prettier"
-  ]
+  ],
+  "rules": {
+    "tsdoc/syntax": "warn",
+    "eqeqeq": ["error", "always", {"null": "ignore"}],
+    "valid-typeof": ["error", { "requireStringLiterals": true }],
+    "array-bracket-spacing": ["error", "always", { "singleValue": false , "arraysInArrays": false ,"objectsInArrays": false }],
+    "object-curly-spacing": ["error", "always", { "arraysInObjects": false, "objectsInObjects": false  }],
+    "no-multi-spaces": ["error", { "ignoreEOLComments": false }],
+    "semi": ["error", "never"],
+    "quotes": ["error", "single"],
+    "key-spacing": ["error", { "afterColon": true }],
+  }
 }

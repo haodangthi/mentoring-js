@@ -1,6 +1,12 @@
 node_modules
 dist
+build
+docs
+*.js
+*.map
 .DS_Store
 .idea
 *.xml
 *.iml
+
+

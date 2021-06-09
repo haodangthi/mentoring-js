@@ -1,24 +1,24 @@
-import { State } from './enums/state'
-import { Status } from './status'
-import { ActualAchievement } from './actual-achievment'
-import { ArchiveItem } from './archive-item'
-import Task from './task'
-import { Achievement } from './achievement'
+import Task from '../../models/task'
+import {
+  ActualAchievement,
+  ArchiveItem,
+  IChallenge,
+  Status,
+} from '../../models'
+import { State } from '../../models/enums/state'
 
-export type TaskStatus = Partial<ArchiveItem>
-
-export interface IChallenge {
-  id: string
-  duration?: number
-  state?: State
-  startDate?: any
-  currentTasks?: ArchiveItem[]
-  tasksOrder?: Task[]
-  tasksStatus?: Map<string, Status>
-  archiveTasks?: ArchiveItem[] | []
-  achievementsStatus?: Map<string, Status>
-  achievements?: Achievement[]
-  actualAchievements?: ActualAchievement[]
+export function startNewChallenge(
+  tasksList: Task[],
+  achievements: ActualAchievement[],
+  challengeDuration = 30,
+  achievementsNumber = challengeDuration / 6
+): Challenge {
+  return new Challenge(
+    tasksList,
+    achievements,
+    challengeDuration,
+    achievementsNumber
+  )
 }
 
 export class Challenge implements IChallenge {

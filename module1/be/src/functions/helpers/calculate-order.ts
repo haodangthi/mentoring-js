@@ -1,6 +1,6 @@
 import * as moment from 'moment'
 
-export function calculateOrder(startDate: any, currentDate: any) {
+export function getDayDifference(startDate: any, currentDate: any) {
   return moment(currentDate).diff(moment(startDate), 'days')
 }
 

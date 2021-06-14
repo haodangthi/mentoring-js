@@ -1,5 +1,5 @@
 import { IChallenge, TaskForToday } from '../../models'
-import { calculateOrder } from '../helpers/calculate-order'
+import { getDayDifference } from '../helpers/calculate-order'
 import { State } from '../../models/enums/state'
 import { getById } from '../helpers/get-by-id'
 
@@ -9,7 +9,7 @@ export function getTaskForToday(
 ): TaskForToday | any {
   const challenge = getById(challengeId, challengesList)
   const today = new Date()
-  const todayIndex = calculateOrder(challenge?.startDate, today)
+  const todayIndex = getDayDifference(challenge?.startDate, today)
   if (challenge) {
     return {
       ...challenge.tasksOrder[todayIndex],

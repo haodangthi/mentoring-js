@@ -16,5 +16,5 @@
     "inlineSources": true
   },
   "include": ["src/**/*"],
-  "exclude": ["build", "node_modules", "jest.config.js", "**/*.spec.ts"]
+  "exclude": ["build", "node_modules", "jest.config.js"]
 }

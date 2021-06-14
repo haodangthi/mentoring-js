@@ -11,7 +11,7 @@ import {
 } from '../../functions/methods'
 import * as moment from 'moment'
 import {
-  calculateOrder,
+  getDayDifference,
   isSameDay,
 } from '../../functions/helpers/calculate-order'
 import Task from '../../models/task'
@@ -104,7 +104,7 @@ describe('test methods', () => {
     const index = 2
     const now = new Date()
     const tomorrow = moment(now).add(2, 'day')
-    expect(calculateOrder(now, tomorrow)).toBe(index)
+    expect(getDayDifference(now, tomorrow)).toBe(index)
   })
 
   it('should check if the dates are same day', () => {

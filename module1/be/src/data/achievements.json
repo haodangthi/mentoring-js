@@ -1,22 +1,27 @@
 [
   {
     "id": 1,
-    "description": "Complete each task 7 days in a row"
+    "description": "Complete each task 7 days in a row",
+    "checkMethod": "getCompletedInRow"
   },
   {
     "id": 2,
-    "description": "Complete five tasks before 8:00 AM"
+    "description": "Complete five tasks before 8:00 AM",
+    "checkMethod": "isTaskCompletedBeforeTime"
   },
   {
     "id": 3,
-    "description": "Complete 4 Monday's tasks "
+    "description": "Complete 4 Monday's tasks ",
+    "checkMethod": "getTasksCompletedOnWeekday"
   },
   {
     "id": 4,
-    "description": "Complete half of the tasks"
+    "description": "Complete half of the tasks",
+    "checkMethod": "areTasksCompleted"
   },
   {
     "id": 5,
-    "description": "Complete all tasks"
+    "description": "Complete all tasks",
+    "checkMethod": "areTasksCompleted"
   }
 ]

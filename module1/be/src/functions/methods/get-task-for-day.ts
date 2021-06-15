@@ -1,7 +1,7 @@
 import { IChallenge, TaskForToday } from '../../models'
-import { getDayDifference } from '../helpers/calculate-order'
 import { State } from '../../models/enums/state'
 import { getById } from '../helpers/get-by-id'
+import { getDayDifference } from '../helpers'
 
 export function getTaskForToday(
   challengeId: string,

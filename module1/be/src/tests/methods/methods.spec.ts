@@ -10,11 +10,9 @@ import {
   startNewChallenge,
 } from '../../functions/methods'
 import * as moment from 'moment'
-import {
-  getDayDifference,
-  isSameDay,
-} from '../../functions/helpers/calculate-order'
+import { isSameDay } from '../../functions/helpers/is-same-day'
 import Task from '../../models/task'
+import { getDayDifference } from '../../functions/helpers'
 
 const tasks: ArchiveItem[] = [
   {

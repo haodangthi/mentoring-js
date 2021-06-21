@@ -1,5 +1,5 @@
 import { ArchiveItem } from '../../models'
-import * as moment from 'moment'
+import moment from 'moment'
 import { isTaskCompleted } from './achievements-quantity'
 
 export function getTaskHour(task: ArchiveItem) {
@@ -10,5 +10,9 @@ export function isTaskCompletedBeforeTime(
   task: ArchiveItem,
   hour: number
 ): boolean {
-  return getTaskHour(task) < 8
+  return getTaskHour(task) < hour
+}
+
+export function are5TasksCompletedBefore8(tasks: ArchiveItem[]) {
+  return tasks.filter((task) => isTaskCompletedBeforeTime(task, 8)).length >= 5
 }

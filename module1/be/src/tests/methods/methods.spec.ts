@@ -9,7 +9,7 @@ import {
   getTaskForToday,
   startNewChallenge,
 } from '../../functions/methods'
-import * as moment from 'moment'
+import moment from 'moment'
 import { isSameDay } from '../../functions/helpers/is-same-day'
 import Task from '../../models/task'
 import { getDayDifference } from '../../functions/helpers'
@@ -65,9 +65,10 @@ const challengeList: IChallenge[] = [
     id: '122',
     tasksOrder: tasksList as unknown as Task[],
     archiveTasks: tasks,
-    startDate: new Date(),
+    startDate: '2021-06-19T08:59:06.798Z',
     achievements: achievements as any,
     actualAchievements,
+    state: State.Pending,
   },
 ]
 
@@ -85,28 +86,42 @@ const achievementsStatus = {
 const newChallenge: IChallenge = {
   id: '124',
   tasksOrder: tasksList as [],
+  duration: 30,
   archiveTasks: tasks,
-  startDate: '',
+  startDate: '2021-06-19T08:59:06.798Z',
   achievements: achievements as any,
   actualAchievements,
+  state: State.Pending,
 }
 
 describe('test methods', () => {
+  beforeAll(() => {
+    jest.useFakeTimers('modern')
+    jest.setSystemTime(new Date('2021-06-21T08:59:06.798Z'))
+  })
+
+  afterAll(() => {
+    jest.useRealTimers()
+  })
+
   const challengeId = '122'
   it('should return a task by Challenge id', () => {
     const newTask = getTaskForToday(challengeId, challengeList)
-    expect(newTask.id).toBe(tasksList[0].id)
+
+    expect(newTask.id).toBe(tasksList[2].id)
   })
 
   it('calculate the order', () => {
     const index = 2
-    const now = new Date()
+    const now = '2021-06-19T08:59:06.798Z'
     const tomorrow = moment(now).add(2, 'day')
-    expect(getDayDifference(now, tomorrow)).toBe(index)
+    expect(getDayDifference(now, tomorrow as any)).toBe(index)
   })
 
   it('should check if the dates are same day', () => {
-    expect(isSameDay(new Date(), new Date())).toBe(true)
+    const date1 = '2021-06-19T08:59:06.798Z'
+    const date2 = '2021-06-19T08:20:06.798Z'
+    expect(isSameDay(date1, date2)).toBe(true)
   })
 
   it('should Return a list of actual achievements by the challenge id', () => {
@@ -122,12 +137,19 @@ describe('test methods', () => {
   })
 
   it('should Return a new challenge using the following parameters: a list of tasks, a list of challenges', () => {
-    const challenge = startNewChallenge(tasksList as any, achievements as any)
+    const challenge = startNewChallenge(
+      tasksList as any,
+      (achievements as any).default
+    )
 
     expect(challenge.duration).toBe(30)
-    expect(challenge.actualAchievements?.length).toBe(30 / 6)
+    expect(challenge.actualAchievements?.length).toBe(
+      (achievements as any).default.length
+    )
     expect(challenge.state).toBe(State.Pending)
-    expect(isSameDay(challenge.startDate, new Date())).toBe(true)
+    expect(isSameDay(challenge.startDate, '2021-06-21T08:59:06.798Z')).toBe(
+      true
+    )
   })
 
   it('should calculate and Return achievements status for the challenge by its achievements list and tasks status', () => {

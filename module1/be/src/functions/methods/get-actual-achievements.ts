@@ -1,4 +1,4 @@
-import { ActualAchievement, Challenge, IChallenge } from '../../models'
+import { ActualAchievement, IChallenge } from '../../models'
 import { getById } from '../helpers/get-by-id'
 
 export function getActualAchievements(
@@ -6,7 +6,7 @@ export function getActualAchievements(
   challengeList: IChallenge[]
 ): ActualAchievement[] {
   return (
-    getById(challengeId, challengeList).actualAchievements ||
+    getById(challengeId, challengeList)?.actualAchievements ||
     ([] as ActualAchievement[])
   )
 }

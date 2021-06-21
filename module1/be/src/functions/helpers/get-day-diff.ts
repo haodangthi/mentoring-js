@@ -1,5 +1,5 @@
-import * as moment from 'moment'
+import moment from 'moment'
 
-export function getDayDifference(startDate: any, currentDate: any) {
+export function getDayDifference(startDate: string, currentDate: string) {
   return moment(currentDate).diff(moment(startDate), 'days')
 }

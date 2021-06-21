@@ -2,5 +2,5 @@
   "watch": ["src"],
   "ext": ".ts,.js",
   "ignore": ["docs", "data"],
-  "exec": "ts-node ./src/index.ts --inspect"
+  "exec": "ts-node ./src/index.ts"
 }

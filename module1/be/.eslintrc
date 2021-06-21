@@ -21,6 +21,6 @@
     "no-multi-spaces": ["error", { "ignoreEOLComments": false }],
     "semi": ["error", "never"],
     "quotes": ["error", "single"],
-    "key-spacing": ["error", { "afterColon": true }],
+    "key-spacing": ["error", { "afterColon": true }]
   }
 }

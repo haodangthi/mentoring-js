@@ -20,29 +20,3 @@ export interface IChallenge {
   achievements?: Achievement[]
   actualAchievements?: ActualAchievement[]
 }
-
-export class Challenge implements IChallenge {
-  id = ''
-  duration: number
-  state = State.Pending
-  startDate: string | Date
-  tasksOrder: Task[]
-  tasksStatus: Map<string, Status> = new Map()
-  archiveTasks: ArchiveItem[] = []
-  achievementsStatus: Map<string, Status> = new Map()
-  actualAchievements: ActualAchievement[]
-  achievementsNumber: number
-
-  constructor(
-    tasksLists: Task[],
-    actualAchievements: ActualAchievement[],
-    duration = 30,
-    achievementsNumber = duration / 6
-  ) {
-    this.duration = duration
-    this.startDate = new Date()
-    this.tasksOrder = tasksLists
-    this.actualAchievements = actualAchievements
-    this.achievementsNumber = achievementsNumber
-  }
-}

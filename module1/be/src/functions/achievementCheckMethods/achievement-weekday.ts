@@ -1,5 +1,5 @@
 import { ArchiveItem } from '../../models'
-import * as moment from 'moment'
+import moment from 'moment'
 import { isTaskCompleted } from './achievements-quantity'
 
 export function getTasksCompletedOnWeekday(

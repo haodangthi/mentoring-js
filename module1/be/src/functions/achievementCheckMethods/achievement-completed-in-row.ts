@@ -2,7 +2,10 @@ import { ArchiveItem } from '../../models'
 import { isTaskCompleted } from './achievements-quantity'
 import { getDayDifference } from '../helpers'
 
-export function getCompletedInRow(tasks: ArchiveItem[], daysNumber: number) {
+export function getCompletedInRow(
+  tasks: ArchiveItem[],
+  daysNumber: number
+): boolean {
   if (tasks.length < daysNumber) return false
   let counter = 0
   tasks.every((task, index) => {
@@ -24,4 +27,8 @@ export function twoTasksCompletedInRow(
     isTaskCompleted(nextTask) &&
     getDayDifference(currentTask.status.updated, nextTask.status.updated) <= 1
   )
+}
+
+export function getCompleted7DaysInRow(tasks: ArchiveItem[]): boolean {
+  return getCompletedInRow(tasks, 7)
 }

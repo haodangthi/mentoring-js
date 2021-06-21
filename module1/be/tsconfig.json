@@ -9,12 +9,12 @@
     "rootDir": "src",
     "strict": true,
     "noImplicitAny": true,
-    "esModuleInterop": false,
+    "esModuleInterop": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "inlineSources": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*.ts"],
   "exclude": ["build", "node_modules", "jest.config.js"]
 }

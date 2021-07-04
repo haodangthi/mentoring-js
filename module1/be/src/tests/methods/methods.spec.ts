@@ -6,7 +6,7 @@ import {
 } from '../../models'
 import * as tasksList from '../../data/tasks.json'
 import { State } from '../../models/enums/state'
-import * as achievements from '../../data/achievements.json'
+import * as achievements from '../../data/database.json'
 import {
   calculateAchievementsStatus,
   getActualAchievements,

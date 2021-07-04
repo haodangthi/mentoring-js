@@ -8,6 +8,7 @@ import passportLocal from 'passport-local'
 import passportJWT from 'passport-jwt'
 import cookieParser from 'cookie-parser'
 
+import { clientURL, JWT_PARAM, JWT_SECRET, mongo, PORT } from './constants'
 import { ChallengeRoute } from './routes/start-challenge'
 import { AuthRouter } from './routes/auth'
 
@@ -18,11 +19,6 @@ import { User } from './schemas/user'
 const localStrategy = passportLocal.Strategy
 const ExtractJwt = passportJWT.ExtractJwt
 const JwtStrategy = passportJWT.Strategy
-
-const clientURL = 'http://localhost:8080'
-const mongo =
-  'mongodb://lenavu:1q2w3e@cluster0-shard-00-00.ymcyu.mongodb.net:27017,cluster0-shard-00-01.ymcyu.mongodb.net:27017,cluster0-shard-00-02.ymcyu.mongodb.net:27017/myFirstDatabase?ssl=true&replicaSet=atlas-13w37v-shard-0&authSource=admin&retryWrites=true&w=majority'
-const PORT = process.env.PORT || 3000
 
 const app = express()
 app.use(cors())
@@ -97,8 +93,8 @@ passport.use(
 passport.use(
   new JwtStrategy(
     {
-      secretOrKey: 'TOP_SECRET',
-      jwtFromRequest: ExtractJwt.fromUrlQueryParameter('secret_token'),
+      secretOrKey: JWT_SECRET,
+      jwtFromRequest: ExtractJwt.fromUrlQueryParameter(JWT_PARAM),
     },
     async (token, done) => {
       try {

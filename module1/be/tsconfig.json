@@ -2,13 +2,13 @@
   "compilerOptions": {
     "target": "es5",
     "module": "commonjs",
-    "lib": ["es6"],
+    "lib": ["es6", "dom"],
     "sourceMap": true,
     "allowJs": false,
     "outDir": "build",
     "rootDir": "src",
     "strict": true,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
@@ -16,5 +16,6 @@
     "inlineSources": true
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["build", "node_modules", "jest.config.js"]
+  "exclude": ["build", "node_modules", "jest.config.js"],
+  "typeRoots": ["./typings", "./node_modules/@types/"]
 }

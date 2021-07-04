@@ -7,7 +7,7 @@ import {
   updateAllAchievementStatuses,
 } from '../../functions/helpers/update-actual-achievement'
 import { getUpdatedAchievements } from '../../functions/helpers'
-import * as achievements from '../../data/achievements.json'
+import * as achievements from '../../data/achievements-test.json'
 
 const tasks: ArchiveItem[] = [
   {

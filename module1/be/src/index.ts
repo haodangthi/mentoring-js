@@ -1,35 +1,122 @@
 import express from 'express'
 import { createServer } from 'http'
 import cors from 'cors'
+import mongoose from 'mongoose'
+import bodyParser from 'body-parser'
+import passport from 'passport'
+import passportLocal from 'passport-local'
+import passportJWT from 'passport-jwt'
+import cookieParser from 'cookie-parser'
 
-import route from './routes/start-challenge'
+import { ChallengeRoute } from './routes/start-challenge'
+import { AuthRouter } from './routes/auth'
+
 import { SocketService } from './services/socket.service'
-import challengeService from './services/challenges.service'
-import { convertMap } from './functions/helpers'
-const clientURL = 'http://localhost:8080'
+import { UserRouter } from './routes/user'
+import { User } from './schemas/user'
 
+const localStrategy = passportLocal.Strategy
+const ExtractJwt = passportJWT.ExtractJwt
+const JwtStrategy = passportJWT.Strategy
+
+const clientURL = 'http://localhost:8080'
+const mongo =
+  'mongodb://lenavu:1q2w3e@cluster0-shard-00-00.ymcyu.mongodb.net:27017,cluster0-shard-00-01.ymcyu.mongodb.net:27017,cluster0-shard-00-02.ymcyu.mongodb.net:27017/myFirstDatabase?ssl=true&replicaSet=atlas-13w37v-shard-0&authSource=admin&retryWrites=true&w=majority'
 const PORT = process.env.PORT || 3000
+
 const app = express()
 app.use(cors())
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(express.json())
 
 export const httpServer = createServer(app)
 const socketService = new SocketService(httpServer, clientURL)
 
-socketService.setConnection().then(() => {
-  socketService.io.of('/socket').on('connection', (socket) => {
-    socket.on('today-task-completed', (data: any) => {
-      const status = challengeService.completeTodayTask(
-        data.challengeId,
-        data.task
-      )
-
-      socket.emit('achievement-status', convertMap(status))
-    })
+mongoose
+  .connect(mongo, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
   })
-})
+  .then(() => console.log('MongoDB connected...'))
+  .catch((err) => console.log(err))
+mongoose.set('useFindAndModify', false)
 
-app.use(route)
-app.get('/', (req, res) => res.send('Hello from server!'))
+app.use(cookieParser())
+app.use(passport.initialize())
+app.use(passport.session())
+
+passport.use(
+  'signup',
+  new localStrategy(
+    {
+      usernameField: 'username',
+      passwordField: 'password',
+    },
+    async (username, password, done) => {
+      try {
+        const user = await User.create({ username, password })
+
+        return done(null, user)
+      } catch (error) {
+        done(error)
+      }
+    }
+  )
+)
+
+passport.use(
+  'login',
+  new localStrategy(
+    {
+      usernameField: 'username',
+      passwordField: 'password',
+    },
+    async (username, password, done) => {
+      try {
+        const user = await User.findOne({ username })
+
+        if (!user) {
+          return done(null, false, { message: 'User not found' })
+        }
+
+        const validate = await user.isValidPassword(password)
+
+        if (!validate) {
+          return done(null, false, { message: 'Wrong Password' })
+        }
+
+        return done(null, user, { message: 'Logged in Successfully' })
+      } catch (error) {
+        return done(error)
+      }
+    }
+  )
+)
+
+passport.use(
+  new JwtStrategy(
+    {
+      secretOrKey: 'TOP_SECRET',
+      jwtFromRequest: ExtractJwt.fromUrlQueryParameter('secret_token'),
+    },
+    async (token, done) => {
+      try {
+        return done(null, token.user)
+      } catch (error) {
+        done(error)
+      }
+    }
+  )
+)
+
+app.use(AuthRouter)
+app.use(passport.authenticate('jwt', { session: false }), UserRouter)
+app.use(ChallengeRoute)
+
+socketService.setConnection().then((data) => {
+  console.log(data)
+})
 
 httpServer.listen(PORT, () => {
   console.log(`App running on port ${PORT}`)

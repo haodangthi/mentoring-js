@@ -1,15 +1,14 @@
-import { IChallenge, TaskForToday } from '../../models'
+import { TaskForToday } from '../../models'
 import { State } from '../../models/enums/state'
-import { getById } from '../helpers/get-by-id'
 import { getDayDifference } from '../helpers'
 import { Challenge } from '../../components'
+import { getChallengeFromDatabaseById } from '../database-methods/challenge/get-challenge'
 
-export function getTaskForToday(
-  challengeId: string,
-  challengesList: IChallenge[]
-): TaskForToday | any {
-  const challenge = getById(challengeId, challengesList)
-  return calculateTaskForToday(challenge)
+export async function getTaskForToday(
+  challengeId: string
+): Promise<TaskForToday> {
+  const challenge = await getChallengeFromDatabaseById(challengeId)
+  return calculateTaskForToday(challenge as any)
 }
 
 export function calculateTaskForToday(

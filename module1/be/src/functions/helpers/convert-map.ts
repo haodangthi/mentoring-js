@@ -1,8 +1,10 @@
-export function convertMap(map: Map<any, any>) {
+export function convertMap(map: any) {
+  console.log(map)
   const object = {} as any
-  map.forEach((v, k) => {
-    object[k] = v
-  })
+
+  for (const [ key, value ] of Object.entries(map)) {
+    object[key] = value
+  }
 
   return object
 }

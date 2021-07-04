@@ -1,35 +1,52 @@
 import express from 'express'
-import * as tasks from '../data/tasks.json'
-import * as achievements from '../data/achievements.json'
-import { startNewChallenge } from '../functions/methods'
-import challengeService from '../services/challenges.service'
+import {
+  getActualAchievements,
+  getTaskArchive,
+  getTaskForToday,
+  startNewChallenge,
+} from '../functions/methods'
+import { Task } from '../schemas/task'
+import { Achievement } from '../schemas/achievement'
+import { Challenge } from '../schemas/challenge'
+import { convertMongooseModel } from '../functions/helpers'
+import { setTaskForToday } from '../functions/database-methods/task-for-today'
+import { setSchedule } from '../functions/helpers/set-schedule'
+import { updateUser } from '../functions/database-methods/user'
 
-const route = express.Router()
+const router = express.Router()
 
-route.get('/start-new-challenge', (req, res) => {
+router.get('/start-new-challenge', async (req, res) => {
+  const allTasks = await Task.find({})
+  const allAchievements = await Achievement.find({})
+
   const challenge = startNewChallenge(
-    (tasks as any).default,
-    (achievements as any).default
+    convertMongooseModel(allTasks),
+    convertMongooseModel(allAchievements)
   )
-  challengeService.addNewChallenge(challenge)
-  res.status(201).json(challenge)
+
+  let newChallenge = await new Challenge(challenge)
+  newChallenge = await newChallenge.save()
+
+  await setTaskForToday(newChallenge._id)
+  setSchedule(newChallenge._id)
+
+  await updateUser((req as any).user._id, { activeChallenge: newChallenge._id })
+  res.status(201).json({ challengeId: newChallenge._id })
 })
 
-route.get('/challenges/:id/actual-achievements', (req, res) => {
-  const actualAchievements =
-    challengeService.getActualAchievementsByChallengeId(req.params.id)
+router.get('/challenges/:id/actual-achievements', async (req, res) => {
+  const actualAchievements = await getActualAchievements(req.params.id)
   res.status(201).json(actualAchievements)
 })
 
-route.get('/challenges/:id/task-for-today', (req, res) => {
-  const todayTask = challengeService.getTaskForTodayByChallengeId(req.params.id)
+router.get('/challenges/:id/task-for-today', async (req, res) => {
+  const todayTask = await getTaskForToday(req.params.id)
   res.status(201).json(todayTask)
 })
 
-route.get('/challenges/:id/tasks-archive', (req, res) => {
-  const challengeId = req.params.id
-  const tasksArchive = challengeService.getTaskArchiveByChallengeId(challengeId)
+router.get('/challenges/:id/tasks-archive', async (req, res) => {
+  const tasksArchive = await getTaskArchive(req.params.id)
   res.status(201).json(tasksArchive)
 })
 
-export default route
+export { router as ChallengeRoute }

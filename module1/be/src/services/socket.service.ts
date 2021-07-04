@@ -1,4 +1,9 @@
 import { Server, Socket } from 'socket.io'
+import { updateAchievementsAndStatus } from '../functions/database-methods/challenge'
+import {
+  completeTaskForToday,
+  updateTaskForToday,
+} from '../functions/database-methods/task-for-today'
 
 export class SocketService {
   io: Server = {} as any
@@ -21,19 +26,19 @@ export class SocketService {
   async setConnection() {
     return new Promise((resolve, reject) => {
       this.io.of('/socket').on('connection', (socket) => {
-        this.socket = socket
         resolve('connection set')
+        socket.emit('message', { message: 'hello' })
+        socket.on('today-task-completed', async (data: any) => {
+          await updateTaskForToday(data.challengeId, data.task)
+          await completeTaskForToday(data.challengeId, data.task)
 
-        this.emit('message', { message: 'hello' })
+          updateAchievementsAndStatus(data.challengeId).then((challenge) =>
+            socket.emit('achievement-status', {
+              message: challenge.achievementsStatus,
+            })
+          )
+        })
       })
     })
-  }
-
-  emit(eventName: string, data: any): void {
-    this.socket.emit(eventName, data)
-  }
-
-  on(eventName: string, callback: any): void {
-    this.socket.on(eventName, callback)
   }
 }

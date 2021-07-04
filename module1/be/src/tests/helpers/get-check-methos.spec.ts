@@ -1,7 +1,7 @@
 import { getCheckMethod, getUpdatedAchievements } from '../../functions/helpers'
 import { getCompleted7DaysInRow } from '../../functions/achievementCheckMethods'
 
-import * as achievements from '../../data/achievements.json'
+import * as achievements from '../../data/achievements-test.json'
 
 describe('Adding check methods to each achievement', () => {
   it('getCheckMethod should return an achievement with a check method name', () => {

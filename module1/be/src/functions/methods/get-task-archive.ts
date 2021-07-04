@@ -1,9 +1,9 @@
-import { ArchiveItem, IChallenge } from '../../models'
-import { getById } from '../helpers/get-by-id'
+import { ArchiveItem } from '../../models'
+import { getChallengeFromDatabaseById } from '../database-methods/challenge/get-challenge'
 
-export function getTaskArchive(
-  challengeId: string,
-  challengeList: IChallenge[]
-): ArchiveItem[] {
-  return getById(challengeId, challengeList).archiveTasks
+export async function getTaskArchive(
+  challengeId: string
+): Promise<ArchiveItem[]> {
+  const challenge = await getChallengeFromDatabaseById(challengeId)
+  return challenge?.archiveTasks || []
 }

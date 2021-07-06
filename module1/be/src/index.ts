@@ -8,7 +8,7 @@ import passportLocal from 'passport-local'
 import passportJWT from 'passport-jwt'
 import cookieParser from 'cookie-parser'
 
-import { clientURL, JWT_PARAM, JWT_SECRET, mongo, PORT } from './constants'
+import { clientURL, JWT_SECRET, mongo, PORT } from './constants/vars'
 import { ChallengeRoute } from './routes/start-challenge'
 import { AuthRouter } from './routes/auth'
 
@@ -93,8 +93,8 @@ passport.use(
 passport.use(
   new JwtStrategy(
     {
-      secretOrKey: JWT_SECRET,
-      jwtFromRequest: ExtractJwt.fromUrlQueryParameter(JWT_PARAM),
+        secretOrKey: JWT_SECRET,
+        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     },
     async (token, done) => {
       try {

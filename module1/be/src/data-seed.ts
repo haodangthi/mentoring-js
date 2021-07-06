@@ -1,6 +1,6 @@
 import seeder from 'mongoose-seed'
 import data from './data/database.json'
-import { mongo } from './constants'
+import { mongo } from './constants/vars'
 
 seeder.connect(mongo, function () {
   seeder.loadModels([

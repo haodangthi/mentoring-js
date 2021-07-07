@@ -1,14 +1,13 @@
 import './styles.scss'
 import io from 'socket.io-client'
 import { TaskForToday } from '../../be/src/models'
-import { SERVER_URL } from '../../be/src/secret/constants'
 import { UserComponent } from './components/user.component'
+import { SERVER_URL, token } from './constants'
 
 const user = new UserComponent()
 const socketClient = io(`${SERVER_URL}/socket`, {
-  query: {
-    secret_token:
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYwZTFiMmY0MGNhNTU1MmFmNzU2OTM5MCJ9LCJpYXQiOjE2MjU0MDQyOTd9.lE9Rz-I7BTEO11gS4anJLHpVT6Ic7k7Alv1bI-QFsmM',
+  extraHeaders: {
+    Authorization: 'Bearer ' + token,
   },
 })
 

@@ -3,13 +3,12 @@ import {
   ArchiveItem,
   TaskForToday,
 } from '../../../be/src/models'
-import { SERVER_URL, token } from '../../../be/src/secret/constants'
+import { SERVER_URL, token } from '../constants'
 
 export class UserComponent {
   user: any
   activeChallengeId: string
   todayTask: TaskForToday
-  taskArchive: ArchiveItem[]
   actualAchievements: ActualAchievement[]
 
   constructor() {
@@ -17,19 +16,12 @@ export class UserComponent {
   }
 
   getUser(): void {
-    fetch(
-      `${SERVER_URL}/user/active-challenge?` +
-        new URLSearchParams({
-          secret_token:
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYwZTFiMmY0MGNhNTU1MmFmNzU2OTM5MCJ9LCJpYXQiOjE2MjU0MTk4OTl9.T0qdYbZ8rP7UlrEl2gqEfMYJ_a8tDdT-ggROEW7kMTI',
-        }),
-      {
-        method: 'get',
-        headers: new Headers({
-          Authorization: `Bearer ${token}`,
-        }),
-      }
-    )
+    fetch(`${SERVER_URL}/user/active-challenge`, {
+      method: 'get',
+      headers: new Headers({
+        Authorization: `Bearer ${token}`,
+      }),
+    })
       .then((response) => response.json())
       .then((user) => {
         this.user = user

@@ -1,4 +1,3 @@
-
 module.exports = {
     parser: '@typescript-eslint/parser', // Specifies the ESLint parser
     extends: [
@@ -12,12 +11,18 @@ module.exports = {
         }
     },
     rules: {
-        // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs
-        // e.g. '@typescript-eslint/explicit-function-return-type': 'off',
+        'semi': [ 'error', 'never' ],
+        'quotes': [ 'error', 'single' ],
+        'key-spacing': [ 'error', { afterColon: true }],
+        'array-bracket-spacing': [ 'error', 'always', { 'singleValue': false , 'arraysInArrays': false ,'objectsInArrays': false }],
+        'object-curly-spacing': [ 'error', 'always', { 'arraysInObjects': false, 'objectsInObjects': false }],
+        'no-multi-spaces': [ 'error', { 'ignoreEOLComments': false }],
+        'eqeqeq': [ 'error', 'always', { 'null': 'ignore' }],
+        'valid-typeof': [ 'error', { 'requireStringLiterals': true }],
     },
     settings: {
         react: {
             version: 'detect' // Tells eslint-plugin-react to automatically detect the version of React to use
         }
     }
-};
+}

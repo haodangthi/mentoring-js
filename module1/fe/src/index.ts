@@ -1,14 +1,58 @@
 import './styles.scss'
+import io from 'socket.io-client'
+import { TaskForToday } from '../../be/src/models'
+import { UserComponent } from './components/user.component'
+import { SERVER_URL, token } from './constants'
 
-const a = 1012
-const b = 12
+const user = new UserComponent()
+const socketClient = io(`${SERVER_URL}/socket`, {
+  extraHeaders: {
+    Authorization: 'Bearer ' + token,
+  },
+})
 
-export const add = (a: any, b: any) => a + b
+socketClient.on('message', (message: string) => {
+  console.log(message)
+})
 
-console.log(add(a, b))
+socketClient.on('achievement-status', (message: string) => {
+  console.log(message)
+})
 
-const greetings = 'Hello, Wohhhhhhkkkkkkkrld!'
+socketClient.emit('client-message', { data: 'hello from client' })
 
-if (document.querySelector('h1')) {
-  document.querySelector('h1').innerHTML = greetings
+const startNewChallengeButton = document.getElementById('start-challenge')
+const getTaskForTodayButton = document.getElementById('get-today-task')
+const completeTaskButton = document.getElementById('complete-task')
+
+startNewChallengeButton.addEventListener('click', startNewChallenge)
+socketClient.emit('new-user', 'new user')
+
+function startNewChallenge() {
+  user
+    .startNewChallenge()
+    .then((challengeId) =>
+      setClickEventListener(getTaskForTodayButton, getTodayTask(challengeId))
+    )
+}
+
+function getTodayTask(id: string) {
+  return async () => {
+    const task = await user.getTodayTask()
+    setClickEventListener(completeTaskButton, completeTodayTask(task, id))
+  }
+}
+
+function completeTodayTask(task: TaskForToday, challengeId: string) {
+  return () => {
+    console.log('complete')
+    socketClient.emit('today-task-completed', {
+      task,
+      challengeId: challengeId,
+    })
+  }
+}
+
+function setClickEventListener(element: HTMLElement, callback: any) {
+  element.addEventListener('click', callback)
 }

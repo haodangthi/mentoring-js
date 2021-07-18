@@ -8,7 +8,12 @@ export async function completeTaskForToday(
 ) {
   const completedTask = updateTask(task, true)
 
-  await addToTasksArchive(challengeId, completedTask)
+ try {
+   await addToTasksArchive(challengeId, completedTask)
+   await updateTaskForToday(challengeId, completedTask)
+ } catch (e) {
+   console.log(e)
+ }
 
-  await updateTaskForToday(challengeId, completedTask)
+  return completedTask
 }

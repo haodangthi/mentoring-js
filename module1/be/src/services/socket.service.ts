@@ -33,8 +33,11 @@ export class SocketService {
 
   setSocketForTaskCompletion(socket) {
     socket.on('today-task-completed', async (data: any) => {
-      await updateTaskForToday(data.challengeId, data.task)
-      await completeTaskForToday(data.challengeId, data.task)
+      const completedTask = await completeTaskForToday(data.challengeId, data.task)
+
+      socket.emit('completed-task', {
+        completedTask: completedTask
+      })
 
       updateAchievementsAndStatus(data.challengeId).then((challenge) =>
           socket.emit('achievement-status', {

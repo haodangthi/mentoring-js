@@ -12,6 +12,7 @@ import { convertMongooseModel } from '../functions/helpers'
 import { setTaskForToday } from '../functions/database-methods/task-for-today'
 import { setSchedule } from '../functions/helpers/set-schedule'
 import { updateUser } from '../functions/database-methods/user'
+import { deleteAllTaskInArchive, getChallengeFromDatabaseById } from '../functions/database-methods/challenge'
 
 const router = express.Router()
 
@@ -34,6 +35,11 @@ router.get('/start-new-challenge', async (req, res) => {
   res.status(201).json({ challengeId: newChallenge._id })
 })
 
+router.get('/challenge/:id', async (req, res) => {
+  const challenge = await getChallengeFromDatabaseById(req.params.id)
+  res.status(201).json(challenge)
+})
+
 router.get('/challenges/:id/actual-achievements', async (req, res) => {
   const actualAchievements = await getActualAchievements(req.params.id)
   res.status(201).json(actualAchievements)
@@ -47,6 +53,15 @@ router.get('/challenges/:id/task-for-today', async (req, res) => {
 router.get('/challenges/:id/tasks-archive', async (req, res) => {
   const tasksArchive = await getTaskArchive(req.params.id)
   res.status(201).json(tasksArchive)
+})
+
+router.delete('/challenges/:id/tasks-archive/delete-all', async (req, res) => {
+  try {
+    await deleteAllTaskInArchive(req.params.id)
+  } catch (e) {
+    console.log(e)
+  }
+  res.status(201)
 })
 
 export { router as ChallengeRoute }

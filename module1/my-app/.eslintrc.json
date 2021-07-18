@@ -4,8 +4,9 @@
         "es2021": true
     },
     "extends": [
-        "plugin:react/recommended",
-        "airbnb"
+        "react-app",
+        "eslint:recommended",
+        "plugin:react/recommended"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -20,5 +21,15 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "no-debugger": "off",
+        "no-unused-vars": "off",
+        "eqeqeq": ["error", "always", {"null": "ignore"}],
+        "valid-typeof": ["error", { "requireStringLiterals": true }],
+        "array-bracket-spacing": ["error", "always", { "singleValue": false , "arraysInArrays": false ,"objectsInArrays": false }],
+        "object-curly-spacing": ["error", "always", { "arraysInObjects": false, "objectsInObjects": false  }],
+        "no-multi-spaces": ["error", { "ignoreEOLComments": false }],
+        "semi": ["error", "never"],
+        "quotes": ["error", "single"],
+        "key-spacing": ["error", { "afterColon": true }]
     }
 }

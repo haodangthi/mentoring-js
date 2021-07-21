@@ -1,7 +1,6 @@
 import express from 'express'
 import jwt from 'jsonwebtoken'
 import passport from 'passport'
-import { JWT_SECRET } from '../constants/vars'
 
 const router = express.Router()
 
@@ -31,7 +30,7 @@ router.post('/login', async (req, res, next) => {
         if (error) return next(error)
 
         const body = { _id: user._id, email: user.email }
-        const token = jwt.sign({ user: body }, JWT_SECRET)
+        const token = jwt.sign({ user: body }, process.env.JWT_SECRET || '')
 
         return res.json({ token })
       })

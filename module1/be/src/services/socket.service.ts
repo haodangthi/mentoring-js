@@ -2,9 +2,7 @@ import { Server, Socket } from 'socket.io'
 import { updateAchievementsAndStatus } from '../functions/database-methods/challenge'
 import {
   completeTaskForToday,
-  updateTaskForToday,
 } from '../functions/database-methods/task-for-today'
-import { JWT_SECRET } from '../constants/vars'
 import passportJWT from 'passport-jwt'
 import { verify } from 'jsonwebtoken'
 const ExtractJwt = passportJWT.ExtractJwt
@@ -14,7 +12,7 @@ export class SocketService {
   socket: Socket = {} as any
   options = {
     jwtFromRequest: ExtractJwt.fromUrlQueryParameter('token'),
-    secretOrKey: JWT_SECRET
+    secretOrKey: process.env.JWT_SECRET
   }
 
   constructor(httpServer: any, clientURL: string) {
@@ -54,7 +52,7 @@ export class SocketService {
         if (!token) {
           socket.emit('message', { message: 'No token' })
         } else {
-          verify(token, JWT_SECRET,(err) => {
+          verify(token, process.env.JWT_SECRET || '',(err) => {
             if (err) {
               return socket.emit('message', { message: 'Invalid token' })
             } else {

@@ -8,6 +8,7 @@ import UserContext from '../context/UserContext'
 import { getActualAchievements, getChallenge, getTasksArchive, getTodayTask } from '../services/user.service'
 import Card from '@material-ui/core/Card'
 import { Button } from '@material-ui/core'
+import { ChallengeResults } from './challengeResults'
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -68,6 +69,9 @@ export default function ActiveChallenge({ challengeId, token }:ActiveChallengePr
                             <li>
                                 <NavLink to="/archive-tasks">{ActiveChallengePages.archiveTasks}</NavLink>
                             </li>
+                            <li>
+                                <NavLink to="/completed-challenges">{ActiveChallengePages.completedChallenges}</NavLink>
+                            </li>
                         </ul>
                     </Route>
                     <Route path="/today-task">
@@ -79,6 +83,9 @@ export default function ActiveChallenge({ challengeId, token }:ActiveChallengePr
                     <Route path="/archive-tasks">
                         <ArchiveItems classes={classes} activeChallenge={activeChallenge} token={token || ''}></ArchiveItems>
                     </Route>
+                    <Route path="/completed-challenges">
+                        <ChallengeResults token={token || ''}></ChallengeResults>
+                    </Route>
                 </Switch>
             </Router>
         </>
@@ -89,7 +96,8 @@ export default function ActiveChallenge({ challengeId, token }:ActiveChallengePr
 enum ActiveChallengePages {
     todayTask = 'Today\'s task',
     achievements = 'Actual achievements',
-    archiveTasks='Archive Tasks',
+    archiveTasks = 'Archive Tasks',
+    completedChallenges = 'Completed challenges',
 }
 
 interface TodayTaskPageProps {
@@ -182,7 +190,7 @@ function ArchiveItems({ classes, activeChallenge, token }:ArchiveItemsProps) {
     )
 }
 
-function BackToActiveChallengePageButton() {
+export function BackToActiveChallengePageButton() {
     let history = useHistory()
 
     return (

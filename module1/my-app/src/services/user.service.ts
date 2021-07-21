@@ -24,6 +24,11 @@ export function getActiveChallengeId(token: string): Promise<IActiveChallenge> {
         .then((response) => response.json())
 }
 
+export function getCompletedChallenges(token: string): Promise<IChallenge[]> {
+    return fetch(`${SERVER_URL}/user/completed-challenges`, getParams(token))
+        .then((response) => response.json())
+}
+
 export function getChallenge(challengeId: string, token: string): Promise<IChallenge> {
     return fetch(`${SERVER_URL}/challenge/${challengeId}`, getParams(token))
         .then((response) => response.json())

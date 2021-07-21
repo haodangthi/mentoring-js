@@ -13,6 +13,15 @@ router.get('/user/active-challenge', async (req, res) => {
   })
 })
 
+router.get('/user/completed-challenges', async (req, res) => {
+  const userId = (req as any).user._id
+  const user = await getUser(userId)
+
+  res.status(201).json({
+    completedChallenges: user.completedChallenges,
+  })
+})
+
 router.put('/user/:id/update', async (req, res) => {
   await updateUser(req.params.id, {
     activeChallenge: req.params.id,

@@ -19,20 +19,20 @@ const userSchema = new mongoose.Schema<IUser>({
     type: String,
     required: false,
   },
+  completedChallenges: {
+    type: Array,
+    required: false,
+  }
 })
 
 userSchema.pre('save', async function (next) {
-  // eslint-disable-next-line @typescript-eslint/no-this-alias
-  const user = this
   const hash = await bcrypt.hash(this.password, 10)
   this.password = hash
   next()
 })
 
 userSchema.methods.isValidPassword = async function (password) {
-  // eslint-disable-next-line @typescript-eslint/no-this-alias
-  const user = this
-  const compare = await bcrypt.compare(password, user.password)
+  const compare = await bcrypt.compare(password, this.password)
 
   return compare
 }

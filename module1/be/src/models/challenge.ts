@@ -9,7 +9,7 @@ import { TaskForToday } from './task-for-day'
 export type TaskStatus = Partial<ArchiveItem>
 
 export interface IChallenge {
-  id?: string
+  _id?: string
   duration?: number
   state?: State
   startDate?: string

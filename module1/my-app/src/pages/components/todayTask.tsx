@@ -1,7 +1,7 @@
 import Button from '@material-ui/core/Button'
 import Card from '@material-ui/core/Card'
 import React from 'react'
-import { TaskForToday } from '../../../be/src/models'
+import { TaskForToday } from '../../../../be/src/models'
 import { makeStyles } from '@material-ui/core'
 
 interface TodayTaskProps {

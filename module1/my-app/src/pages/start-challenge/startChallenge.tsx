@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import Button from '@material-ui/core/Button'
-import { startNewChallenge } from '../services/user.service'
-import { ChallengeResults } from './challengeResults'
+import { startNewChallenge } from '../../services/user.service'
+import { ChallengeResults } from '../challenge-results/challengeResults'
 
 interface StartNewChallengeProps {
     token: string;

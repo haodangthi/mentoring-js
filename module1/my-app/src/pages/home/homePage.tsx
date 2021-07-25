@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import ActiveChallenge from './activeChallenge'
-import StartNewChallenge from './startChallenge'
-import UserContext from '../context/UserContext'
-import { getActiveChallengeId } from '../services/user.service'
-import NavBar from './navBar'
+import ActiveChallenge from '../active-challenge/activeChallenge'
+import StartNewChallenge from '../start-challenge/startChallenge'
+import UserContext from '../../context/UserContext'
+import { getActiveChallengeId } from '../../services/user.service'
+import NavBar from '../components/navBar'
 
 const HomePage = () => {
     const setToken = useContext(UserContext).setToken

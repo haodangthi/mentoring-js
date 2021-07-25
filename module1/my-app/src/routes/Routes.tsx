@@ -6,8 +6,8 @@ import {
     Route,
     Link
 } from 'react-router-dom'
-import HomePage from '../pages/homePage'
-import LoginPage from '../pages/loginPage'
+import HomePage from '../pages/home/homePage'
+import LoginPage from '../pages/login/loginPage'
 
 const Routes = () => {
     const isAuthenticated = useContext(UserContext).isAuthenticated

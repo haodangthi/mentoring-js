@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-import { SERVER_URL } from '../constants/constants'
-import UserContext from '../context/UserContext'
-import SocketService from '../services/socket.service'
+import { SERVER_URL } from '../../constants/constants'
+import UserContext from '../../context/UserContext'
+import SocketService from '../../services/socket.service'
 
 const LoginPage: React.FC = () => {
     const [ username, setUsername ] = useState('')

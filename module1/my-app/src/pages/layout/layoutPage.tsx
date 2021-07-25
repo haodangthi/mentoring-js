@@ -5,12 +5,10 @@ import {
     Route,
     Link
 } from 'react-router-dom'
-import io from 'socket.io-client'
 
-import UserContext from '../context/UserContext'
-import Routes from '../routes/Routes'
-import { SERVER_URL } from '../constants/constants'
-import SocketService from '../services/socket.service'
+import UserContext from '../../context/UserContext'
+import Routes from '../../routes/Routes'
+import SocketService from '../../services/socket.service'
 
 const LayoutPage = () => {
     const [ token, setToken ] = useState(getTokenFromLocalStorage() || '')

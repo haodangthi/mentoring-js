@@ -1,8 +1,7 @@
 import seeder from 'mongoose-seed'
 import data from './data/database.json'
-import { mongo } from './constants/vars'
 
-seeder.connect(mongo, function () {
+seeder.connect(process.env.MONGO || '', function () {
   seeder.loadModels([
     'src/schemas/task.ts',
     'src/schemas/achievement.ts',

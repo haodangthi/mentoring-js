@@ -1,3 +1,5 @@
+import * as dotenv from 'dotenv'
+
 import express from 'express'
 import { createServer } from 'http'
 import cors from 'cors'
@@ -8,17 +10,21 @@ import passportLocal from 'passport-local'
 import passportJWT from 'passport-jwt'
 import cookieParser from 'cookie-parser'
 
-import { clientURL, JWT_SECRET, mongo, PORT } from './constants/vars'
 import { ChallengeRoute } from './routes/start-challenge'
 import { AuthRouter } from './routes/auth'
 
 import { SocketService } from './services/socket.service'
 import { UserRouter } from './routes/user'
 import { User } from './schemas/user'
+import { errorHandler } from './routes/middlewares/error-handler'
 
 const localStrategy = passportLocal.Strategy
 const ExtractJwt = passportJWT.ExtractJwt
 const JwtStrategy = passportJWT.Strategy
+
+dotenv.config()
+console.log('hello')
+console.log(process.env.CLIENT_URL)
 
 const app = express()
 app.use(cors())
@@ -26,10 +32,14 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.json())
 
 export const httpServer = createServer(app)
-const socketService = new SocketService(httpServer, clientURL)
+
+const socketService = new SocketService(
+  httpServer,
+  process.env.CLIENT_URL || ''
+)
 
 mongoose
-  .connect(mongo, {
+  .connect(process.env.MONGO || '', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
@@ -93,8 +103,8 @@ passport.use(
 passport.use(
   new JwtStrategy(
     {
-        secretOrKey: JWT_SECRET,
-        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      secretOrKey: process.env.JWT_SECRET || '',
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     },
     async (token, done) => {
       try {
@@ -110,10 +120,12 @@ app.use(AuthRouter)
 app.use(passport.authenticate('jwt', { session: false }), UserRouter)
 app.use(ChallengeRoute)
 
+app.use(errorHandler)
+
 socketService.setConnection().then((data) => {
   console.log(data)
 })
 
-httpServer.listen(PORT, () => {
-  console.log(`App running on port ${PORT}`)
+httpServer.listen(process.env.PORT || '', () => {
+  console.log(`App running on port ${process.env.PORT || ''}`)
 })

@@ -78,10 +78,10 @@ export default function ActiveChallenge({ challengeId, token }:ActiveChallengePr
                         <TodayTaskPage currentTask={currentTask} completeTodayTask={completeTodayTask} challengeId={challengeId} token={token}/>
                     </Route>
                     <Route path="/achievements">
-                        <ActualAchievements classes={classes} activeChallenge={activeChallenge} token={token|| ''}></ActualAchievements>
+                        <ActualAchievements classes={classes} challengeId={challengeId || ''} token={token|| ''}></ActualAchievements>
                     </Route>
                     <Route path="/archive-tasks">
-                        <ArchiveItems classes={classes} activeChallenge={activeChallenge} token={token || ''}></ArchiveItems>
+                        <ArchiveItems classes={classes} challengeId={challengeId || ''} token={token || ''}></ArchiveItems>
                     </Route>
                     <Route path="/completed-challenges">
                         <ChallengeResults token={token || ''}></ChallengeResults>
@@ -128,15 +128,16 @@ function TodayTaskPage({ currentTask, challengeId, completeTodayTask }: TodayTas
 
 interface ActualAchievementsProps {
     classes: any;
-    activeChallenge: any;
+    challengeId: any;
     token: string;
 }
 
-function ActualAchievements({ classes, activeChallenge, token }:ActualAchievementsProps) {
+function ActualAchievements({ classes, challengeId, token }:ActualAchievementsProps) {
     const [ actualAchievements, setActualAchievements ] = useState<ActualAchievement[]>([])
 
     useEffect(() => {
-        getActualAchievements(activeChallenge._id, token)
+        debugger
+        getActualAchievements(challengeId, token)
             .then(setActualAchievements)
     },[])
 
@@ -158,15 +159,15 @@ function ActualAchievements({ classes, activeChallenge, token }:ActualAchievemen
 
 interface ArchiveItemsProps {
     classes: any;
-    activeChallenge: any;
+    challengeId: string;
     token: string;
 }
 
-function ArchiveItems({ classes, activeChallenge, token }:ArchiveItemsProps) {
+function ArchiveItems({ classes, challengeId, token }:ArchiveItemsProps) {
     const [ archiveItems, setArchiveItems ] = useState<ArchiveItem[]>([])
 
     useEffect(() => {
-        getTasksArchive(activeChallenge._id, token)
+        getTasksArchive(challengeId, token)
             .then(setArchiveItems)
     },[])
 

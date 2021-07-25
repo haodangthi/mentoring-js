@@ -16,6 +16,7 @@ const HomePage = () => {
     useEffect(() => {
         getActiveChallengeId(token)
             .then(({ activeChallenge }) => {
+                debugger
                 setActiveChallengeId(activeChallenge)
                 setLoading(false)
             })

@@ -2,6 +2,7 @@ import { TodayTask } from '../components/todayTask'
 import { Button } from '@material-ui/core'
 import React from 'react'
 import { BackToActiveChallengePageButton } from '../components/backButton'
+import { getOS } from '../../utils/get-os'
 
 interface TodayTaskPageProps {
     currentTask?: any;
@@ -11,10 +12,11 @@ interface TodayTaskPageProps {
 }
 
 export function TodayTaskPage({ currentTask, challengeId, completeTodayTask }: TodayTaskPageProps) {
+    const os = getOS()
     return (
         <>
             <BackToActiveChallengePageButton></BackToActiveChallengePageButton>
-            <h2>Today`s task</h2>
+            <h2>Hello, my {os} friend! Your Today`s task is</h2>
             {
                 currentTask
                     ? <TodayTask challengeId={challengeId || ''} completeTodayTask={completeTodayTask} currentTask={currentTask}></TodayTask>

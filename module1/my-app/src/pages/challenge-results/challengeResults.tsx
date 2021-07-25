@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { getCompletedChallenges } from '../../services/user.service'
 import { IChallenge } from '../../../../be/src/models'
-import { BackToActiveChallengePageButton } from '../active-challenge/activeChallenge'
+import { BackToActiveChallengePageButton } from '../components/backButton'
 
 interface ChallengeResultsProps {
     token: string;

@@ -5,6 +5,7 @@ import StartNewChallenge from '../start-challenge/startChallenge'
 import UserContext from '../../context/UserContext'
 import { getActiveChallengeId } from '../../services/user.service'
 import NavBar from '../components/navBar'
+import CustomizedSnackbars from '../components/snackbar'
 
 const HomePage = () => {
     const setToken = useContext(UserContext).setToken
@@ -16,7 +17,6 @@ const HomePage = () => {
     useEffect(() => {
         getActiveChallengeId(token)
             .then(({ activeChallenge }) => {
-                debugger
                 setActiveChallengeId(activeChallenge)
                 setLoading(false)
             })
@@ -24,6 +24,7 @@ const HomePage = () => {
 
     return (<>
         <NavBar currentRoute={ 'Home Page' }></NavBar>
+        <CustomizedSnackbars></CustomizedSnackbars>
         {
             loading
                 ? <h1>loading ...</h1>

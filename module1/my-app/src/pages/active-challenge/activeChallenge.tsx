@@ -44,6 +44,7 @@ export default function ActiveChallenge({ challengeId, token }:ActiveChallengePr
             })
         socketClient.on('completed-task', ({ completedTask }: any) => {
             setCurrentTask(completedTask)
+            window.navigator.vibrate(200)
         })
     },[])
 

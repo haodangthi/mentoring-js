@@ -14,7 +14,6 @@ export function ActualAchievements({ classes, challengeId, token }:ActualAchieve
     const [ actualAchievements, setActualAchievements ] = useState<ActualAchievement[]>([])
 
     useEffect(() => {
-        debugger
         getActualAchievements(challengeId, token)
             .then(setActualAchievements)
     },[])

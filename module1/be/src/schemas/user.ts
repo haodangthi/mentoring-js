@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema<IUser>({
   completedChallenges: {
     type: Array,
     required: false,
-  }
+  },
 })
 
 userSchema.pre('save', async function (next) {

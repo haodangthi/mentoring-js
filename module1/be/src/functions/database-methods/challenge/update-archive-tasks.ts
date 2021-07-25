@@ -7,7 +7,7 @@ export async function addToTasksArchive(
   task: ArchiveItem
 ) {
   const archiveTasks = await getTaskArchive(challengeId)
-  const archivedTask = archiveTasks.find(task => task.id === task.id)
+  const archivedTask = archiveTasks.find((task) => task.id === task.id)
 
   if (!archivedTask) {
     const payload = {
@@ -18,7 +18,7 @@ export async function addToTasksArchive(
   }
 }
 
-export function deleteAllTaskInArchive(challengeId: string,) {
+export function deleteAllTaskInArchive(challengeId: string) {
   const payload = {
     archiveTasks: [],
   }

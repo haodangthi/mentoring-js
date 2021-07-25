@@ -13,6 +13,12 @@ export function isTaskCompletedBeforeTime(
   return getTaskHour(task) < hour
 }
 
-export function are5TasksCompletedBefore8(tasks: ArchiveItem[]) {
-  return tasks.filter((task) => isTaskCompletedBeforeTime(task, 8)).length >= 5
+const TASK_QUANTITY = 5
+const HOUR = 8
+
+export function checkTaskCompletionByHour(tasks: ArchiveItem[]) {
+  return (
+    tasks.filter((task) => isTaskCompletedBeforeTime(task, HOUR)).length >=
+    TASK_QUANTITY
+  )
 }

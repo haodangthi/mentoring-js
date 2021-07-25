@@ -1,6 +1,5 @@
 import * as dotenv from 'dotenv'
 
-
 import express from 'express'
 import { createServer } from 'http'
 import cors from 'cors'
@@ -34,7 +33,10 @@ app.use(express.json())
 
 export const httpServer = createServer(app)
 
-const socketService = new SocketService(httpServer, process.env.CLIENT_URL || '')
+const socketService = new SocketService(
+  httpServer,
+  process.env.CLIENT_URL || ''
+)
 
 mongoose
   .connect(process.env.MONGO || '', {
@@ -101,8 +103,8 @@ passport.use(
 passport.use(
   new JwtStrategy(
     {
-        secretOrKey: process.env.JWT_SECRET,
-        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      secretOrKey: process.env.JWT_SECRET || '',
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     },
     async (token, done) => {
       try {

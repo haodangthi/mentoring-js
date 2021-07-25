@@ -10,6 +10,7 @@ export type TaskStatus = Partial<ArchiveItem>
 
 export interface IChallenge {
   _id?: string
+  id?: string
   duration?: number
   state?: State
   startDate?: string

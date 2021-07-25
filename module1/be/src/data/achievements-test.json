@@ -7,7 +7,7 @@
   {
     "id": "2",
     "description": "Complete five tasks before 8:00 AM",
-    "checkMethod": "are5TasksCompletedBefore8"
+    "checkMethod": "checkTaskCompletionByHour"
   },
   {
     "id": "3",

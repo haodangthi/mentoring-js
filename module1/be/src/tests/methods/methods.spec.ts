@@ -18,7 +18,6 @@ import moment from 'moment'
 import { isSameDay } from '../../functions/helpers/is-same-day'
 import Task from '../../models/task'
 import { getDayDifference } from '../../functions/helpers'
-import { getChallengeFromDatabaseById } from '../../functions/database-methods/challenge'
 import { Challenge } from '../../schemas/challenge'
 
 const tasks: ArchiveItem[] = [

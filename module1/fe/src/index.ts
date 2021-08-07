@@ -11,14 +11,6 @@ const socketClient = io(`${SERVER_URL}/socket`, {
   },
 })
 
-socketClient.on('message', (message: string) => {
-  console.log(message)
-})
-
-socketClient.on('achievement-status', (message: string) => {
-  console.log(message)
-})
-
 socketClient.emit('client-message', { data: 'hello from client' })
 
 const startNewChallengeButton = document.getElementById('start-challenge')
@@ -45,7 +37,6 @@ function getTodayTask(id: string) {
 
 function completeTodayTask(task: TaskForToday, challengeId: string) {
   return () => {
-    console.log('complete')
     socketClient.emit('today-task-completed', {
       task,
       challengeId: challengeId,

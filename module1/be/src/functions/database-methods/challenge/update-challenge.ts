@@ -5,5 +5,6 @@ export function updateChallengeInDatabaseById(
   id: string,
   data: any
 ): Promise<IChallenge> {
+  console.log(data)
   return Challenge.findByIdAndUpdate(id, data)
 }

@@ -1,5 +1,5 @@
 import moment from 'moment'
 
-export function isSameDay(date1: string, date2: string) {
-  return moment(date1).isSame(moment(date2), 'day')
+export function isSameDay(firstDate: string, secondDate: string) {
+  return moment(firstDate).isSame(moment(secondDate), 'day')
 }

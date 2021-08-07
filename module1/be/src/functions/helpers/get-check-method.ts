@@ -3,7 +3,7 @@ import {
   areTasksCompleted,
   getTasksCompletedOnWeekday,
   isTaskCompletedBeforeTime,
-  are5TasksCompletedBefore8,
+  checkTaskCompletionByHour,
   getCompleted7DaysInRow,
 } from '../../functions/achievementCheckMethods'
 import { AchievementItem } from '../../models'
@@ -13,7 +13,7 @@ const checkMethods: { [index: string]: any } = {
   getTasksCompletedOnWeekday,
   isTaskCompletedBeforeTime,
   getCompletedInRow,
-  are5TasksCompletedBefore8,
+  checkTaskCompletionByHour,
   getCompleted7DaysInRow,
 }
 

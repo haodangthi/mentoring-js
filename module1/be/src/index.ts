@@ -23,8 +23,6 @@ const ExtractJwt = passportJWT.ExtractJwt
 const JwtStrategy = passportJWT.Strategy
 
 dotenv.config()
-console.log('hello')
-console.log(process.env.CLIENT_URL)
 
 const app = express()
 app.use(cors())
@@ -35,7 +33,7 @@ export const httpServer = createServer(app)
 
 const socketService = new SocketService(
   httpServer,
-  process.env.CLIENT_URL || ''
+  [ process.env.CLIENT_URL || '', process.env.MOBILE_URL || '', ]
 )
 
 mongoose
@@ -103,7 +101,7 @@ passport.use(
 passport.use(
   new JwtStrategy(
     {
-      secretOrKey: process.env.JWT_SECRET || '',
+      secretOrKey: process.env.JWT_SECRET || 'JWT_SECRET',
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     },
     async (token, done) => {

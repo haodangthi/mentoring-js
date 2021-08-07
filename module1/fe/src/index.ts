@@ -37,7 +37,6 @@ function getTodayTask(id: string) {
 
 function completeTodayTask(task: TaskForToday, challengeId: string) {
   return () => {
-    console.log('complete')
     socketClient.emit('today-task-completed', {
       task,
       challengeId: challengeId,

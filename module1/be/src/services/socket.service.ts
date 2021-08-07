@@ -13,15 +13,15 @@ export class SocketService {
     secretOrKey: process.env.JWT_SECRET,
   }
 
-  constructor(httpServer: any, clientURL: string) {
-    this.initSocket(httpServer, clientURL)
+  constructor(httpServer: any, clientURLs: string[]) {
+    this.initSocket(httpServer, clientURLs)
   }
 
-  initSocket(httpServer: any, clientURL: string): void {
+  initSocket(httpServer: any, clientURLs: string[]): void {
     // server from node HTTP type ???
     this.io = new Server(httpServer, {
       cors: {
-        origin: clientURL,
+        origin: clientURLs,
         methods: [ 'GET', 'POST' ],
       },
     })

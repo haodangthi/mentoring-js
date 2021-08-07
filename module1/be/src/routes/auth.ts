@@ -8,7 +8,6 @@ router.post(
   '/signup',
   passport.authenticate('signup', { session: false }),
   async (req, res, next) => {
-    console.log('request body', req.body, (req as any).user)
     res.json({
       message: 'Signup successful',
       user: (req as any).user,
@@ -18,7 +17,6 @@ router.post(
 
 router.post('/login', async (req, res, next) => {
   passport.authenticate('login', async (err, user, info) => {
-    console.log('request body', req.body, user)
     try {
       if (err || !user) {
         const error = new Error('An error occurred.')
